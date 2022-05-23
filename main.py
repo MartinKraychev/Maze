@@ -1,7 +1,8 @@
 from algorithms.binary_tree_alg import binary_tree_alg
 from algorithms.depth_first_search_alg import dfs_alg
 from algorithms.randomized_prim_alg import Maze
-from functions import show_maze, generate_initial_maze, generate_maze_with_walls_only, place_points
+from functions import generate_initial_maze, generate_maze_with_walls_only, place_points, show_maze
+from solver import Solver
 
 if __name__ == '__main__':
     initial_maze = generate_initial_maze(59, 20)
@@ -14,5 +15,8 @@ if __name__ == '__main__':
     # print(show_maze(dfs_maze_with_points))
     maze = Maze(60, 20)
     maze.create_paths()
-    maze.place_points()
+    maze.add_details()
     print(maze)
+
+    solver = Solver(maze.current_maze_state)
+    solver.solve()

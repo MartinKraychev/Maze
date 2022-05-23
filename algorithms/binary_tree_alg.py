@@ -1,7 +1,6 @@
 import random
-
+from constrains import cell_symbol
 directions = [(0, 1), (1, 0)]
-cell_symbol = '\u25AE'
 
 
 def binary_tree_alg(maze):

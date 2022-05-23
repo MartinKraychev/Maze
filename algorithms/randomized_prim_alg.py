@@ -9,6 +9,12 @@ class Maze:
     start_symbol = '\u27A4'
     finish_symbol = '\u274C'
 
+    terrain = {
+        '\u2162': 3,
+        '\u2164': 5,
+        '\u2169': 10
+    }
+
     def __init__(self, width, height):
         self.width = width
         self.height = height
@@ -67,15 +73,25 @@ class Maze:
 
                     self.walls[current_wall] = d
 
-    def place_points(self):
+    def add_details(self):
         """
-        Randomly places start and end points
+        Adds starting and finishing points to the maze.
+        After that it adds 20 random terrain points with different step count.
         """
-        start = random.choice(self.visited_cells)
-        self.visited_cells.remove(start)
-        self._current_maze_state[start[0]][start[1]] = Maze.start_symbol
-        finish = random.choice(self.visited_cells)
-        self._current_maze_state[finish[0]][finish[1]] = Maze.finish_symbol
+        self.select_random_position(Maze.start_symbol)
+        self.select_random_position(Maze.finish_symbol)
+
+        for t in range(20):
+            terrain_symbol = random.choice(list(self.terrain.keys()))
+            self.select_random_position(terrain_symbol)
+
+    def select_random_position(self, symbol):
+        """
+        Selects random position for a symbol and removes it from available positions.
+        """
+        position = random.choice(self.visited_cells)
+        self.visited_cells.remove(position)
+        self._current_maze_state[position[0]][position[1]] = symbol
 
     @staticmethod
     def show_maze(matrix):
@@ -97,7 +113,9 @@ class Maze:
     def initial_maze(self):
         return self._initial_maze
 
+    @property
+    def current_maze_state(self):
+        return self._current_maze_state
+
     def __str__(self):
         return self.show_maze(self._current_maze_state)
-
-

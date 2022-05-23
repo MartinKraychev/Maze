@@ -1,9 +1,7 @@
 import copy
 import random
 
-wall_symbol = '\u25AF'
-cell_symbol = '\u25AE'
-directions = [(-1, 0), (1, 0), (0, 1), (0, -1)]
+from constrains import cell_symbol, directions
 visited_cells = []
 
 
@@ -11,7 +9,7 @@ def recursive_path(item, copy_maze):
     """
     Calls recursively until there is available moves
     """
-    d = get_directions(item, copy_maze)
+    d = get_random_directions(item, copy_maze)
     if not d:
         return
 
@@ -40,7 +38,7 @@ def get_possible_moves(coords, copy_maze):
     return result
 
 
-def get_directions(coordinates, copy_maze):
+def get_random_directions(coordinates, copy_maze):
     """
     Selects random direction
     """
