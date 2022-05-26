@@ -7,6 +7,7 @@ from solver import Solver
 if __name__ == '__main__':
     initial_maze = generate_initial_maze(59, 20)
     maze_with_walls = generate_maze_with_walls_only(60, 20)
+    # print(show_maze(initial_maze))
     # binary_maze = binary_tree_alg(initial_maze)
     # binary_maze_with_points = place_points(binary_maze)
     # print(show_maze(binary_maze_with_points))

@@ -70,20 +70,35 @@ class Maze:
 
                 if self._current_maze_state[current_wall[0]][current_wall[1]] == Maze.wall_symbol and \
                         current_wall not in self.walls:
-
                     self.walls[current_wall] = d
 
     def add_details(self):
         """
         Adds starting and finishing points to the maze.
         After that it adds 20 random terrain points with different step count.
+        Finally it adds interconnecting points in the maze can have multiple paths to the target.
         """
         self.select_random_position(Maze.start_symbol)
         self.select_random_position(Maze.finish_symbol)
 
-        for t in range(20):
+        for t in range(50):
             terrain_symbol = random.choice(list(self.terrain.keys()))
             self.select_random_position(terrain_symbol)
+
+        all_walls = self.get_all_walls()
+        for w in range(100):
+            wall = random.choice(all_walls)
+            self._current_maze_state[wall[0]][wall[1]] = Maze.cell_symbol
+            all_walls.remove(wall)
+
+    def get_all_walls(self):
+        all_walls = []
+        for r in range(1, len(self._current_maze_state) - 1):
+            for c in range(1, len(self._current_maze_state[r]) - 1):
+                if self._current_maze_state[r][c] == Maze.wall_symbol:
+                    all_walls.append((r, c))
+
+        return all_walls
 
     def select_random_position(self, symbol):
         """
