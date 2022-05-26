@@ -1,24 +1,41 @@
 import copy
+from dataclasses import dataclass
 from operator import attrgetter
 
 from functions import show_maze
 
 
+@dataclass(frozen=True)
 class Tile:
     """
-    This is used as data structure with tile information
+    Data class used to for storing data for better performance.
+    Alternative is commented below.
     """
-    def __init__(self, x, y, goal, step, prev_tile_coord=None):
-        self.x = x
-        self.y = y
-        self.goal = goal
-        self.g = step
-        self.h = self.calculate_heuristic()
-        self.f = self.g + self.h
-        self.prev_tile_coord = prev_tile_coord
+    x: int
+    y: int
+    goal: tuple
+    # g = steps taken so far
+    g: int
+    prev_tile_coord: tuple
 
-    def calculate_heuristic(self):
-        return abs(self.goal[0] - self.x) + abs(self.goal[1] - self.y)
+    def __post_init__(self):
+        # We set the heuristic score of Tile. It is the sum of the steps(g) and the manhattan distance.
+        object.__setattr__(self, 'f', self.g + abs(self.goal[0] - self.x) + abs(self.goal[1] - self.y))
+
+
+# class Tile:
+#
+#     def __init__(self, x, y, goal, step, prev_tile_coord=None):
+#         self.x = x
+#         self.y = y
+#         self.goal = goal
+#         self.g = step
+#         self.h = self.calculate_heuristic()
+#         self.f = self.g + self.h
+#         self.prev_tile_coord = prev_tile_coord
+#
+#     def calculate_heuristic(self):
+#         return abs(self.goal[0] - self.x) + abs(self.goal[1] - self.y)
 
 
 class Solver:
