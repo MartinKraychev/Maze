@@ -9,6 +9,8 @@ class Maze:
     start_symbol = '\u27A4'
     finish_symbol = '\u274C'
 
+    # Using Roman numerical symbols to represent path obstacles.
+    # For Example V stands to a cell that requires 5 steps to pass through.
     terrain = {
         '\u2162': 3,
         '\u2164': 5,
